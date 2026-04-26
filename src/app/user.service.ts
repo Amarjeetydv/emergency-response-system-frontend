@@ -7,6 +7,11 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   private headers(): HttpHeaders {
+    const directToken = localStorage.getItem('token');
+    if (directToken) {
+      return new HttpHeaders({ Authorization: `Bearer ${directToken}` });
+    }
+
     const u = JSON.parse(localStorage.getItem('user') || 'null');
     const t = u?.token;
     return new HttpHeaders(t ? { Authorization: `Bearer ${t}` } : {});

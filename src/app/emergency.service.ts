@@ -58,6 +58,9 @@ export class EmergencyService {
   }
 
   private getToken(): string | null {
+    const directToken = localStorage.getItem('token');
+    if (directToken) return directToken;
+
     const user = JSON.parse(localStorage.getItem('user') || 'null');
     return user?.token || null;
   }
