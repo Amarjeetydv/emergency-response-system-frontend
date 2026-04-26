@@ -19,6 +19,16 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('user') || 'null');
   }
 
+  getToken(): string | null {
+    const directToken = localStorage.getItem('token');
+    if (directToken) return directToken;
+    return this.getUser()?.token || null;
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.getUser() && !!this.getToken();
+  }
+
   logout() {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
